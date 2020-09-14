@@ -37,12 +37,12 @@
 	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      var photo = L.tileLayer('file:////Users/hopegattis/Desktop/GEOG%20370/GEOG370/{z}/{x}/{y}.png', {
+      var photo = L.tileLayer('file:////Users/hopegattis/Desktop/GEOG%20370/GEOG370FALL2020/{z}/{x}/{y}.png', {
         minZoom: 12,
         maxZoom: 16,
         tms: false,
         attribution: 'USGS'
-      });
+      }).addTo(map);
 
       var tiles = {
         "Open Street Map": OSM,
@@ -58,7 +58,7 @@
       var bh = L.geoJSON(bragawHall, { // a
       pointToLayer: function (feature, latlng) { // b 
       return L.marker(latlng, {icon: dormIcon});}}) // c 
-      .bindPopup(bragawHallPopup); // d
+      .bindPopup(bragawHallPopup); // 
 
       var healthIcon = L.icon({ 
       iconUrl: 'https://icon2.cleanpng.com/20180514/crw/kisspng-medicine-staff-of-hermes-health-symbol-logo-5af994c1362522.8460656315263059852218.jpg',
@@ -82,11 +82,9 @@
       return L.marker(latlng, {icon: booksIcon});}}) // c 
       .bindPopup(libraryPopup);
 
-
       var vectors = {
         "Bragaw Hall": bh,
-        "Student Health": sh,
-        "Hunt Library": hl
+        "Student Health": sh
       }
 
       L.control.layers(tiles, vectors).addTo(map);

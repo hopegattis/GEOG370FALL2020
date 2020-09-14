@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Preview</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+   <script src = "./bragaw_hall.geojson"></script>
+   <script src = "./student_health.geojson"></script>
+   <script src = "./hunt_library.geojson"></script>
+   
+  <style type="text/css">
+    body {
+       margin: 0;
+       padding: 0;
+    }
+    html, body, #map{
+       width: 100%;
+       height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+      var map = L.map('map').setView([35.788000663097804, -78.67687907314786], 14.0);
+
+      var OSM = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    maxZoom: 19,
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      var photo = L.tileLayer('file:////Users/hopegattis/Desktop/GEOG%20370/GEOG370/{z}/{x}/{y}.png', {
+        minZoom: 12,
+        maxZoom: 16,
+        tms: false,
+        attribution: 'USGS'
+      });
+
+      var tiles = {
+        "Open Street Map": OSM,
+        "NCSU Photo": photo
+      }
+
+      var dormIcon = L.icon({ 
+      iconUrl: 'https://www.pinclipart.com/picdir/middle/121-1211546_bedroom-cartoon-clip-art-double-bed-clipart-png.png',
+      iconSize: [25,25], // size of the icon
+      popupAnchor: [0,0] // where the icon is located relative to the lat lon of the point. 
+      });
+      var bragawHallPopup = "Bragaw Hall was built in 1958.<br/><img src='https://iiif.lib.ncsu.edu/iiif/funk_railing0028/square/300,/0/default.jpg'width='100px'/>";
+      var bh = L.geoJSON(bragawHall, { // a
+      pointToLayer: function (feature, latlng) { // b 
+      return L.marker(latlng, {icon: dormIcon});}}) // c 
+      .bindPopup(bragawHallPopup); // d
+
+      var healthIcon = L.icon({ 
+      iconUrl: 'https://icon2.cleanpng.com/20180514/crw/kisspng-medicine-staff-of-hermes-health-symbol-logo-5af994c1362522.8460656315263059852218.jpg',
+      iconSize: [25,25], // size of the icon
+      popupAnchor: [0,0] // where the icon is located relative to the lat lon of the point. 
+      });
+      var healthPopup = "Student health was expanded upon in 2011.<br/><img src='https://healthypack.dasa.ncsu.edu/wp-content/uploads/sites/15/2001/04/NC-State-Student-Health-440x333.jpg'width='100px'/>";
+      var sh = L.geoJSON(studentHealth, { // a
+      pointToLayer: function (feature, latlng) { // b 
+      return L.marker(latlng, {icon: healthIcon});}}) // c 
+      .bindPopup(healthPopup); // d
+
+      var booksIcon = L.icon({ 
+      iconUrl: 'https://www.pinclipart.com/picdir/middle/175-1754911_chapter-books-png-clipart.png',
+      iconSize: [25,25], // size of the icon
+      popupAnchor: [0,0] // where the icon is located relative to the lat lon of the point. 
+      });
+      var libraryPopup = "Hunt Library was built in 2013.<br/><img src='https://cdnassets.hw.net/e4/42/010cf8fc4096800ebd011d4c7e1b/tmp5ff9-2etmp-tcm20-1937133.jpg'width='100px'/>";
+      var hl = L.geoJSON(huntLibrary, { // a
+      pointToLayer: function (feature, latlng) { // b 
+      return L.marker(latlng, {icon: booksIcon});}}) // c 
+      .bindPopup(libraryPopup);
+
+
+      var vectors = {
+        "Bragaw Hall": bh,
+        "Student Health": sh,
+        "Hunt Library": hl
+      }
+
+      L.control.layers(tiles, vectors).addTo(map);
+
+      
+
+  </script>
+</body>
+</html>

@@ -14,7 +14,7 @@
    crossorigin=""></script>
    <script src = "./bragaw_hall.geojson"></script>
    <script src = "./student_health.geojson"></script>
-   <script src = "./hunt_library.geojson"></script>
+   <script src = "./baseball_field.geojson"></script>
    
   <style type="text/css">
     body {
@@ -70,9 +70,21 @@
       return L.marker(latlng, {icon: healthIcon});}}) // c 
       .bindPopup(healthPopup); // d
 
+      var baseballIcon = L.icon({ 
+      iconUrl: 'https://www.clipartmax.com/png/small/0-3182_free-baseball-clip-art-images-free-clipart-baseball-clipart.png',
+      iconSize: [25,25], // size of the icon
+      popupAnchor: [0,0] // where the icon is located relative to the lat lon of the point. 
+      });
+      var baseballPopup = "The baseball field was reconstructed in 2004.<br/><img src='https://i1.wp.com/www.collegebaseballdaily.com/wp-content/uploads/2017/12/NCState.jpg?fit=2000%2C800'width='100px'/>";
+      var bf = L.geoJSON(baseballField, { // a
+      pointToLayer: function (feature, latlng) { // b 
+      return L.marker(latlng, {icon: baseballIcon});}}) // c 
+      .bindPopup(baseballPopup);
+
       var vectors = {
         "Bragaw Hall": bh,
         "Student Health": sh,
+        "Baseball Field": bf
       }
 
       L.control.layers(tiles, vectors).addTo(map);

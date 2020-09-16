@@ -70,21 +70,9 @@
       return L.marker(latlng, {icon: healthIcon});}}) // c 
       .bindPopup(healthPopup); // d
 
-      var booksIcon = L.icon({ 
-      iconUrl: 'https://www.pinclipart.com/picdir/middle/175-1754911_chapter-books-png-clipart.png',
-      iconSize: [25,25], // size of the icon
-      popupAnchor: [0,0] // where the icon is located relative to the lat lon of the point. 
-      });
-      var libraryPopup = "Hunt Library was built in 2013.<br/><img src='https://cdnassets.hw.net/e4/42/010cf8fc4096800ebd011d4c7e1b/tmp5ff9-2etmp-tcm20-1937133.jpg'width='100px'/>";
-      var hl = L.geoJSON(huntLibrary, { // a
-      pointToLayer: function (feature, latlng) { // b 
-      return L.marker(latlng, {icon: booksIcon});}}) // c 
-      .bindPopup(libraryPopup);
-
       var vectors = {
         "Bragaw Hall": bh,
         "Student Health": sh,
-        "Hunt Library": hl
       }
 
       L.control.layers(tiles, vectors).addTo(map);

@@ -37,7 +37,7 @@
 	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      var photo = L.tileLayer('file:////Users/hopegattis/Desktop/GEOG%20370/GEOG370FALL2020/{z}/{x}/{y}.png', {
+      var photo = L.tileLayer('./{z}/{x}/{y}.png', {
         minZoom: 12,
         maxZoom: 16,
         tms: false,
